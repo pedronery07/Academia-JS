@@ -32,17 +32,19 @@ async function exercicio_1(exercises, config){
 }
 
 // Exercício 2
-//async function exercicio_2(exercises, config){
-  //return axios
-  //    .post("https://tecweb-js.insper-comp.com.br/exercicio", {'resposta': null}, config)
-  //    .then((response) => console.log(response.data))
-//}
+async function exercicio_2(exercises, config){
+  ex2 = exercises['tamanho-string']
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/tamanho-string", {'resposta': ex2['entrada']['string'].length}, config)
+      .then((response) => response.data)
+}
 
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
     let exercises = await get_exercises(config);
     await exercicio_1(exercises, config);
+    await exercicio_2(exercises, config);
     console.log(exercises);
 }
 
