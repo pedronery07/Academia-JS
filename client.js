@@ -98,7 +98,18 @@ async function exercicio_6(exercises, config){
   a = ex6['entrada']['a'];
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/volume-da-pizza", {'resposta': Math.round(Math.PI*(z**2)*a)}, config)
-      .then((response) => console.log(response.data))
+      .then((response) => response.data)
+}
+
+// Exercício 7: mru
+async function exercicio_7(exercises, config){
+  ex7 = exercises['mru']
+  s0 = ex7['entrada']['s0']
+  v = ex7['entrada']['v']
+  t = ex7['entrada']['t']
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/mru", {'resposta': s0 + v*t}, config)
+      .then((response) => response.data)
 }
 
 async function main(){
@@ -111,6 +122,7 @@ async function main(){
     await exercicio_4(exercises, config);
     await exercicio_5(exercises, config);
     await exercicio_6(exercises, config);
+    await exercicio_7(exercises, config);
     //console.log(exercises);
 }
 
