@@ -60,7 +60,7 @@ async function exercicio_4(exercises, config){
   v = ex3['entrada']['v']
   a_rad = radians(a)
   d = (v**2*(Math.sin(2*a_rad)))/g
-  
+
   if (d >= 98 && d <= 102){
     resposta = 0
   }
@@ -73,7 +73,22 @@ async function exercicio_4(exercises, config){
 
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/jaca-wars", {'resposta': resposta}, config)
-      .then((response) => console.log(response.data))
+      .then((response) => response.data)
+}
+
+// Exercício 5: 
+async function exercicio_5(exercises, config){
+  ex3 = exercises['ano-bissexto'];
+  ano = ex3['entrada']['ano'];
+  if (ano % 4 == 0 && ano % 100 != 0 || ano % 400 == 0){
+    bissexto = true
+  }
+  else{
+    bissexto = false
+  }
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/ano-bissexto", {'resposta': bissexto}, config)
+      .then((response) => response.data)
 }
 
 async function main(){
@@ -84,6 +99,7 @@ async function main(){
     await exercicio_2(exercises, config);
     await exercicio_3(exercises, config);
     await exercicio_4(exercises, config);
+    await exercicio_5(exercises, config);
     //console.log(exercises);
 }
 
