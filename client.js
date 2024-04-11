@@ -5,6 +5,9 @@ const config = {
       "Accept": "application/json"
   }
 }
+const radians = function(degrees) {
+  return degrees * Math.PI / 180;
+};
 
 // Exercício 0: obter o token
 async function get_token(){
@@ -31,7 +34,7 @@ async function exercicio_1(exercises, config){
       // para ver o sucesso: console.log(response.data)
 }
 
-// Exercício 2
+// Exercício 2: tamanho-string
 async function exercicio_2(exercises, config){
   ex2 = exercises['tamanho-string']
   return axios
@@ -39,7 +42,7 @@ async function exercicio_2(exercises, config){
       .then((response) => response.data)
 }
 
-// Exercício 3
+// Exercício 3: nome-do-usuario
 async function exercicio_3(exercises, config){
   ex3 = exercises['nome-do-usuario'];
   email = ex3['entrada']['email'];
@@ -49,6 +52,30 @@ async function exercicio_3(exercises, config){
       .then((response) => response.data)
 }
 
+// Exercício 4: jaca-wars
+async function exercicio_4(exercises, config){
+  ex3 = exercises['jaca-wars'];
+  g = 9.8
+  a = ex3['entrada']['theta'] 
+  v = ex3['entrada']['v']
+  a_rad = radians(a)
+  d = (v**2*(Math.sin(2*a_rad)))/g
+  
+  if (d >= 98 && d <= 102){
+    resposta = 0
+  }
+  else if (d < 98){
+    resposta = -1
+  }
+  else{
+    resposta = 1
+  }
+
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/jaca-wars", {'resposta': resposta}, config)
+      .then((response) => console.log(response.data))
+}
+
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
@@ -56,7 +83,8 @@ async function main(){
     await exercicio_1(exercises, config);
     await exercicio_2(exercises, config);
     await exercicio_3(exercises, config);
-    console.log(exercises);
+    await exercicio_4(exercises, config);
+    //console.log(exercises);
 }
 
 main();
