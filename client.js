@@ -54,10 +54,10 @@ async function exercicio_3(exercises, config){
 
 // Exercício 4: jaca-wars
 async function exercicio_4(exercises, config){
-  ex3 = exercises['jaca-wars'];
+  ex4 = exercises['jaca-wars'];
   g = 9.8
-  a = ex3['entrada']['theta'] 
-  v = ex3['entrada']['v']
+  a = ex4['entrada']['theta'] 
+  v = ex4['entrada']['v']
   a_rad = radians(a)
   d = (v**2*(Math.sin(2*a_rad)))/g
 
@@ -76,10 +76,10 @@ async function exercicio_4(exercises, config){
       .then((response) => response.data)
 }
 
-// Exercício 5: 
+// Exercício 5: ano-bissexto
 async function exercicio_5(exercises, config){
-  ex3 = exercises['ano-bissexto'];
-  ano = ex3['entrada']['ano'];
+  ex5 = exercises['ano-bissexto'];
+  ano = ex5['entrada']['ano'];
   if (ano % 4 == 0 && ano % 100 != 0 || ano % 400 == 0){
     bissexto = true
   }
@@ -91,6 +91,16 @@ async function exercicio_5(exercises, config){
       .then((response) => response.data)
 }
 
+// Exercício 6: volume-da-pizza
+async function exercicio_6(exercises, config){
+  ex6 = exercises['volume-da-pizza'];
+  z = ex6['entrada']['z'];
+  a = ex6['entrada']['a'];
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/volume-da-pizza", {'resposta': Math.round(Math.PI*(z**2)*a)}, config)
+      .then((response) => console.log(response.data))
+}
+
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
@@ -100,6 +110,7 @@ async function main(){
     await exercicio_3(exercises, config);
     await exercicio_4(exercises, config);
     await exercicio_5(exercises, config);
+    await exercicio_6(exercises, config);
     //console.log(exercises);
 }
 
