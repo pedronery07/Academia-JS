@@ -25,9 +25,9 @@ async function get_exercises(config){
 
 // Exercício 1: soma
 async function exercicio_1(exercises, config){
-  ex1 = exercises['soma']
-  num1 = ex1['entrada']['a']
-  num2 = ex1['entrada']['b']
+  let ex1 = exercises['soma']
+  let num1 = ex1['entrada']['a']
+  let num2 = ex1['entrada']['b']
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/soma", {'resposta': num1 + num2}, config)
       .then((response) => response.data)
@@ -36,7 +36,7 @@ async function exercicio_1(exercises, config){
 
 // Exercício 2: tamanho-string
 async function exercicio_2(exercises, config){
-  ex2 = exercises['tamanho-string']
+  let ex2 = exercises['tamanho-string']
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/tamanho-string", {'resposta': ex2['entrada']['string'].length}, config)
       .then((response) => response.data)
@@ -44,9 +44,9 @@ async function exercicio_2(exercises, config){
 
 // Exercício 3: nome-do-usuario
 async function exercicio_3(exercises, config){
-  ex3 = exercises['nome-do-usuario'];
-  email = ex3['entrada']['email'];
-  arroba = email.search("@")
+  let ex3 = exercises['nome-do-usuario'];
+  let email = ex3['entrada']['email'];
+  let arroba = email.search("@")
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/nome-do-usuario", {'resposta': email.slice(0, arroba)}, config)
       .then((response) => response.data)
@@ -54,12 +54,12 @@ async function exercicio_3(exercises, config){
 
 // Exercício 4: jaca-wars
 async function exercicio_4(exercises, config){
-  ex4 = exercises['jaca-wars'];
-  g = 9.8
-  a = ex4['entrada']['theta'] 
-  v = ex4['entrada']['v']
-  a_rad = radians(a)
-  d = (v**2*(Math.sin(2*a_rad)))/g
+  let ex4 = exercises['jaca-wars'];
+  let g = 9.8
+  let a = ex4['entrada']['theta'] 
+  let v = ex4['entrada']['v']
+  let a_rad = radians(a)
+  let d = (v**2*(Math.sin(2*a_rad)))/g
 
   if (d >= 98 && d <= 102){
     resposta = 0
@@ -78,8 +78,8 @@ async function exercicio_4(exercises, config){
 
 // Exercício 5: ano-bissexto
 async function exercicio_5(exercises, config){
-  ex5 = exercises['ano-bissexto'];
-  ano = ex5['entrada']['ano'];
+  let ex5 = exercises['ano-bissexto'];
+  let ano = ex5['entrada']['ano'];
   if (ano % 4 == 0 && ano % 100 != 0 || ano % 400 == 0){
     bissexto = true
   }
@@ -93,9 +93,9 @@ async function exercicio_5(exercises, config){
 
 // Exercício 6: volume-da-pizza
 async function exercicio_6(exercises, config){
-  ex6 = exercises['volume-da-pizza'];
-  z = ex6['entrada']['z'];
-  a = ex6['entrada']['a'];
+  let ex6 = exercises['volume-da-pizza'];
+  let z = ex6['entrada']['z'];
+  let a = ex6['entrada']['a'];
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/volume-da-pizza", {'resposta': Math.round(Math.PI*(z**2)*a)}, config)
       .then((response) => response.data)
@@ -103,12 +103,33 @@ async function exercicio_6(exercises, config){
 
 // Exercício 7: mru
 async function exercicio_7(exercises, config){
-  ex7 = exercises['mru']
-  s0 = ex7['entrada']['s0']
-  v = ex7['entrada']['v']
-  t = ex7['entrada']['t']
+  let ex7 = exercises['mru']
+  let s0 = ex7['entrada']['s0']
+  let v = ex7['entrada']['v']
+  let t = ex7['entrada']['t']
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/mru", {'resposta': s0 + v*t}, config)
+      .then((response) => response.data)
+}
+
+// Exercício 8: inverte-string
+async function exercicio_8(exercises, config){
+  let ex8 = exercises['inverte-string']
+  let str = ex8['entrada']['string']
+  let split = str.split("")
+  let reverse = split.reverse()
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/inverte-string", {'resposta': reverse.join("")}, config)
+      .then((response) => response.data)
+}
+
+// Exercício 9: soma-valores
+async function exercicio_9(exercises, config){
+  let ex9 = exercises['soma-valores']
+  let obj = ex9['entrada']['objeto']
+  let valores = Object.values(obj);
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/soma-valores", {'resposta': valores.reduce((a, b) => a + b)}, config)
       .then((response) => response.data)
 }
 
@@ -123,6 +144,8 @@ async function main(){
     await exercicio_5(exercises, config);
     await exercicio_6(exercises, config);
     await exercicio_7(exercises, config);
+    await exercicio_8(exercises, config);
+    await exercicio_9(exercises, config);
     //console.log(exercises);
 }
 
