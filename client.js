@@ -8,6 +8,22 @@ const config = {
 const radians = function(degrees) {
   return degrees * Math.PI / 180;
 };
+const eh_primo = function(n){
+  if (n === 0 || n === 1 || n < 0){
+    return false;
+  }
+  else if (n === 2){
+    return true;
+  }
+  let i = 2
+  while (i != n){
+    if (n % i == 0){
+      return false
+    }
+    i++
+  }
+  return true
+}
 
 // Exercício 0: obter o token
 async function get_token(){
@@ -133,6 +149,23 @@ async function exercicio_9(exercises, config){
       .then((response) => response.data)
 }
 
+// Exercício 10: n-esimo-primo 
+async function exercicio_10(exercises, config){
+  let ex10 = exercises['n-esimo-primo']
+  let num = ex10['entrada']['n']
+  let i = 0
+  let lista_primos = []
+  while (lista_primos.length < num){
+    if (eh_primo(i) == true){
+      lista_primos.push(i);
+    }
+    i++
+  }
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/n-esimo-primo", {'resposta': lista_primos[lista_primos.length - 1]}, config)
+      .then((response) => console.log(response.data))
+}
+
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
@@ -146,6 +179,7 @@ async function main(){
     await exercicio_7(exercises, config);
     await exercicio_8(exercises, config);
     await exercicio_9(exercises, config);
+    await exercicio_10(exercises, config);
     //console.log(exercises);
 }
 
