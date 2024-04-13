@@ -194,6 +194,22 @@ async function exercicio_12(exercises, config){
       .then((response) => response.data)
 }
 
+// Exercício 13: conta-palindormos 
+async function exercicio_13(exercises, config){
+  let ex13 = exercises['conta-palindromos']
+  palavras = ex13['entrada']['palavras']
+  let contador = 0
+  for (let palavra of palavras){
+    split = palavra.split("");
+    if (palavra.toString() === split.reverse().join("").toString()){
+      contador++;
+    }
+  }
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/conta-palindromos", {'resposta': contador}, config)
+      .then((response) => response.data)
+}
+
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
@@ -210,6 +226,7 @@ async function main(){
     await exercicio_10(exercises, config);
     //await exercicio_11(exercises, config);
     await exercicio_12(exercises, config);
+    await exercicio_13(exercises, config);
     //console.log(exercises);
 }
 
