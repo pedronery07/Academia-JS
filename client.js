@@ -210,6 +210,15 @@ async function exercicio_13(exercises, config){
       .then((response) => response.data)
 }
 
+// Exercício 14: soma-de-strings-de-ints 
+async function exercicio_14(exercises, config){
+  let ex14 = exercises['soma-de-strings-de-ints']
+  let strings = ex14['entrada']['strings']
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/soma-de-strings-de-ints", {'resposta': strings.map((n) => parseInt(n)).reduce((a,b) => a + b)}, config)
+      .then((response) => response.data)
+}
+
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
@@ -227,6 +236,7 @@ async function main(){
     //await exercicio_11(exercises, config);
     await exercicio_12(exercises, config);
     await exercicio_13(exercises, config);
+    await exercicio_14(exercises, config);
     //console.log(exercises);
 }
 
