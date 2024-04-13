@@ -219,6 +219,22 @@ async function exercicio_14(exercises, config){
       .then((response) => response.data)
 }
 
+// Exercício 15: soma-com-requisicoes 
+async function exercicio_15(exercises, config){
+  let ex15 = exercises['soma-com-requisicoes']
+  endpoints = ex15['entrada']['endpoints']
+  let soma = 0
+  let promises = []
+  for(endpoint of endpoints){
+    let promise = axios.get(endpoint, config).then(response => soma += response.data)
+    promises.push(promise);
+  }
+  await Promise.all(promises);
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/soma-com-requisicoes", {'resposta': soma}, config)
+      .then((response) => response.data)
+}
+
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
@@ -237,6 +253,7 @@ async function main(){
     await exercicio_12(exercises, config);
     await exercicio_13(exercises, config);
     await exercicio_14(exercises, config);
+    await exercicio_15(exercises, config);
     //console.log(exercises);
 }
 
