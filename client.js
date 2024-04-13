@@ -163,7 +163,35 @@ async function exercicio_10(exercises, config){
   }
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/n-esimo-primo", {'resposta': lista_primos[lista_primos.length - 1]}, config)
-      .then((response) => console.log(response.data))
+      .then((response) => response.data)
+}
+
+// Exercício 11: maior-prefixo-comum 
+async function exercicio_11(exercises, config){
+  let ex11 = exercises['maior-prefixo-comum']
+  strings = ex11['entrada']['strings']
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/maior-prefixo-comum", {'resposta': null}, config)
+      .then((response) => response.data)
+}
+
+// Exercício 12: soma-segundo-maior-e-menor-numeros 
+async function exercicio_12(exercises, config){
+  let ex12 = exercises['soma-segundo-maior-e-menor-numeros']
+  let array = ex12['entrada']['numeros']
+  let maior2, menor2;
+  if (array.length === 2){
+    maior2 = 0
+    menor2 = array.reduce((a, b) => a + b);
+  }
+  else{
+  let crescente = array.sort((a, b) => a - b)
+  maior2 = crescente[crescente.length-2]
+  menor2 = crescente[1]
+  }
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/soma-segundo-maior-e-menor-numeros", {'resposta': menor2 + maior2}, config)
+      .then((response) => response.data)
 }
 
 async function main(){
@@ -180,6 +208,8 @@ async function main(){
     await exercicio_8(exercises, config);
     await exercicio_9(exercises, config);
     await exercicio_10(exercises, config);
+    //await exercicio_11(exercises, config);
+    await exercicio_12(exercises, config);
     //console.log(exercises);
 }
 
