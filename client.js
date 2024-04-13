@@ -235,6 +235,31 @@ async function exercicio_15(exercises, config){
       .then((response) => response.data)
 }
 
+// Exercício 16: caca-ao-tesouro 
+async function exercicio_16(exercises, config){
+  let ex16 = exercises['caca-ao-tesouro']
+  inicio = ex16['entrada']['inicio']
+  let iniciou = false
+  let tesouro
+  while (true){
+    if (!iniciou){
+      let promise = axios.get(inicio, config).then(response => tesouro = response.data)
+      await promise
+      iniciou = true
+    }
+    else{
+      let promise = axios.get(tesouro, config).then(response => tesouro = response.data)
+      await promise
+    }
+    if (typeof tesouro === "number"){
+      break
+    }
+  }
+  return axios
+      .post("https://tecweb-js.insper-comp.com.br/exercicio/caca-ao-tesouro", {'resposta': tesouro}, config)
+      .then((response) => console.log(response.data)) 
+}
+
 async function main(){
     let token = await get_token();
     config["headers"]["Authorization"] = `Bearer ${token}`;
@@ -254,6 +279,7 @@ async function main(){
     await exercicio_13(exercises, config);
     await exercicio_14(exercises, config);
     await exercicio_15(exercises, config);
+    await exercicio_16(exercises, config);
     //console.log(exercises);
 }
 
