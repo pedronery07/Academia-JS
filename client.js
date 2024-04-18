@@ -167,12 +167,26 @@ async function exercicio_10(exercises, config){
 }
 
 // Exercício 11: maior-prefixo-comum 
-async function exercicio_11(exercises, config){
-  let ex11 = exercises['maior-prefixo-comum']
-  strings = ex11['entrada']['strings']
-  return axios
-      .post("https://tecweb-js.insper-comp.com.br/exercicio/maior-prefixo-comum", {'resposta': null}, config)
-      .then((response) => response.data)
+async function exercicio_11(exercises, config) {
+  let ex11 = exercises['maior-prefixo-comum'];
+  let strings = ex11['entrada']['strings'];
+  let prefixo = '';
+  let dict_results = {}
+  for (let palavra of strings) {
+    for (let i = 1; i <= palavra.length; i++) {
+      let vezes = strings.filter(str => str.startsWith(palavra.substring(0, i))).length;
+      if (!(palavra.substring(0, i) in dict_results) && (vezes > 1)) {
+        dict_results[palavra.substring(0, i)] = vezes;
+      }
+    }
+  }
+  for (let key in dict_results){
+    if (key.length > prefixo.length){
+      prefixo = key;
+    }
+  }
+  return axios.post("https://tecweb-js.insper-comp.com.br/exercicio/maior-prefixo-comum", {'resposta': prefixo}, config)
+    .then((response) => response.data);
 }
 
 // Exercício 12: soma-segundo-maior-e-menor-numeros 
@@ -257,7 +271,7 @@ async function exercicio_16(exercises, config){
   }
   return axios
       .post("https://tecweb-js.insper-comp.com.br/exercicio/caca-ao-tesouro", {'resposta': tesouro}, config)
-      .then((response) => console.log(response.data)) 
+      .then((response) => response.data) 
 }
 
 async function main(){
@@ -274,7 +288,7 @@ async function main(){
     await exercicio_8(exercises, config);
     await exercicio_9(exercises, config);
     await exercicio_10(exercises, config);
-    //await exercicio_11(exercises, config);
+    await exercicio_11(exercises, config);
     await exercicio_12(exercises, config);
     await exercicio_13(exercises, config);
     await exercicio_14(exercises, config);
